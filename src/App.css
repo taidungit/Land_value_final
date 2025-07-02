@@ -40,3 +40,25 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Move Leaflet layers control to bottom right, avoid search box */
+.leaflet-control-container .leaflet-top.leaflet-right {
+  top: unset !important;
+  bottom: 2rem !important;
+  right: 2rem !important;
+}
+
+/* Force move Leaflet layers control button to bottom right */
+.leaflet-control-layers {
+  position: fixed !important;
+  top: unset !important;
+  bottom: 2rem !important;
+  right: 2rem !important;
+  left: unset !important;
+  z-index: 1001 !important;
+}
+
+.leaflet-control-layers-toggle {
+  margin-bottom: 0 !important;
+}
+

@@ -87,9 +87,10 @@ interface MiniMapProps {
   landIndex?: number; // index của lô đất đang chọn
   height?: number;
   onSelectLand?: (index: number) => void; // callback khi chọn lô đất
+  background?: boolean; // nếu là background thì chỉ render map
 }
 
-const MiniMap = ({ landIndex, height = 350, onSelectLand }: MiniMapProps) => {
+const MiniMap = ({ landIndex, height = 350, onSelectLand, background = false }: MiniMapProps) => {
   // Nếu chưa có lô nào được chọn, mặc định chọn lô đầu tiên
   const selectedIndex = typeof landIndex === 'number' ? landIndex : 0;
   const selectedLand = mockLands[selectedIndex]?.landInfo;
@@ -98,6 +99,75 @@ const MiniMap = ({ landIndex, height = 350, onSelectLand }: MiniMapProps) => {
   const center: LatLngExpression = selectedLand?.location
     ? [selectedLand.location.lat, selectedLand.location.lng]
     : [21.0285, 105.8542]; // fallback Hà Nội
+
+  if (background) {
+    return (
+      <div style={{ width: '100vw', height: '100vh', position: 'absolute', top: 0, left: 0 }}>
+        <MapContainer
+          center={center as [number, number] as any}
+          zoom={16}
+          style={{ height: '100%', width: '100%' }}
+          scrollWheelZoom
+          doubleClickZoom={false}
+          dragging
+        >
+          <LayersControl>
+            <LayersControl.BaseLayer checked name="OpenStreetMap">
+              <TileLayer
+                url="http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
+                subdomains={["mt0", "mt1", "mt2", "mt3"]}
+                // @ts-ignore
+                attribution="&copy; Google"
+              />
+            </LayersControl.BaseLayer>
+            <LayersControl.BaseLayer name="Vệ tinh Esri">
+              <TileLayer
+                url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+                // @ts-ignore
+                attribution="Tiles &copy; Esri"
+                maxZoom={19}
+              />
+            </LayersControl.BaseLayer>
+            <LayersControl.Overlay name="Bản đồ quy hoạch TP.HCM 2030">
+              <TileLayer
+                url="https://l5cfglaebpobj.vcdn.cloud/tp-ho-chi-minh-2030/{z}/{x}/{y}.png"
+                attribution="Bản đồ quy hoạch TP.HCM 2030"
+                opacity={0.6}
+              />
+            </LayersControl.Overlay>
+            <LayersControl.Overlay checked name="Ranh giới lô đất">
+              {mockLands.map((land, idx) => (
+                <Polygon
+                  key={idx}
+                  positions={land.landInfo.shape}
+                  pathOptions={{
+                    color: idx === selectedIndex ? "#ff9800" : "#2563eb",
+                    weight: idx === selectedIndex ? 8 : 2,
+                    fillOpacity: idx === selectedIndex ? 0.5 : 0.3,
+                  }}
+                  eventHandlers={{
+                    click: () => onSelectLand && onSelectLand(idx),
+                  }}
+                />
+              ))}
+            </LayersControl.Overlay>
+            {selectedLand?.location && (
+              <LayersControl.Overlay checked name="Vị trí thửa đất">
+                <Marker position={[selectedLand.location.lat, selectedLand.location.lng]}>
+                  <Popup>
+                    <strong>{selectedLand.address}</strong>
+                    <br />
+                    Tọa độ: {selectedLand.location.lat.toFixed(5)}, {selectedLand.location.lng.toFixed(5)}
+                  </Popup>
+                </Marker>
+              </LayersControl.Overlay>
+            )}
+          </LayersControl>
+          <ResetViewButton center={center} zoom={16} />
+        </MapContainer>
+      </div>
+    );
+  }
 
   return (
     <Card className="p-4">
