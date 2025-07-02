@@ -26,7 +26,7 @@ interface PricingInfoProps {
 const PricingInfo = ({ data }: PricingInfoProps) => {
   return (
     <div className="space-y-6">
-      <Card className="p-6 bg-gradient-to-br from-green-50 to-blue-50 border-green-200">
+      <Card className="p-6 bg-gradient-to-br from-green-50 to-blue-50 border-green-200" style={{ height: 290 }}>
         <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center">
           <DollarSign className="mr-2 h-6 w-6 text-green-600" />
           Ước tính giá trị
@@ -73,40 +73,42 @@ const PricingInfo = ({ data }: PricingInfoProps) => {
         </div>
       </Card>
 
-      <Card className="p-6">
+      <Card className="p-6 flex flex-col justify-center" style={{ height: 445 }}>
         <h3 className="text-lg font-semibold mb-4 flex items-center">
           <TrendingUp className="mr-2 h-5 w-5" />
           Xu hướng giá 6 tháng gần đây
         </h3>
-        <div className="h-64">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data.price_trend}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="month" dy={10} />
-              <YAxis
-                tickFormatter={(value) => `${(value / 1_000_000).toFixed(0)}M`} dx={-10}
-              />
-              <Tooltip
-                contentStyle={{
-                  backgroundColor: "white",
-                  borderRadius: "6px",
-                  borderColor: "#10b981",
-                }}
-                formatter={(value: number) => [formatVND(value), "Giá/m²"]}
-              />
-              <Line
-                type="monotone"
-                dataKey="price"
-                stroke="#10b981"
-                strokeWidth={3}
-                dot={{ fill: "#10b981", strokeWidth: 2 }}
-              />
-            </LineChart>
-          </ResponsiveContainer>
+        <div className="flex-1 flex items-center justify-center h-full">
+          <div className="h-72 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={data.price_trend}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" dy={10} />
+                <YAxis
+                  tickFormatter={(value) => `${(value / 1_000_000).toFixed(0)}M`} dx={-10}
+                />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "white",
+                    borderRadius: "6px",
+                    borderColor: "#10b981",
+                  }}
+                  formatter={(value: number) => [formatVND(value), "Giá/m²"]}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="price"
+                  stroke="#10b981"
+                  strokeWidth={3}
+                  dot={{ fill: "#10b981", strokeWidth: 2 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </Card>
 
-      <Card className="p-6">
+      <Card className="p-6" style={{ minHeight: 297 }}>
         <h3 className="text-lg font-semibold mb-4 flex items-center">
           <MapPin className="mr-2 h-5 w-5" />
           Giao dịch gần đây

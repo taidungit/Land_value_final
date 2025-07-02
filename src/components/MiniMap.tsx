@@ -135,33 +135,7 @@ const MiniMap = ({ landIndex, height = 350, onSelectLand, background = false }: 
                 opacity={0.6}
               />
             </LayersControl.Overlay>
-            <LayersControl.Overlay checked name="Ranh giới lô đất">
-              {mockLands.map((land, idx) => (
-                <Polygon
-                  key={idx}
-                  positions={land.landInfo.shape}
-                  pathOptions={{
-                    color: idx === selectedIndex ? "#ff9800" : "#2563eb",
-                    weight: idx === selectedIndex ? 8 : 2,
-                    fillOpacity: idx === selectedIndex ? 0.5 : 0.3,
-                  }}
-                  eventHandlers={{
-                    click: () => onSelectLand && onSelectLand(idx),
-                  }}
-                />
-              ))}
-            </LayersControl.Overlay>
-            {selectedLand?.location && (
-              <LayersControl.Overlay checked name="Vị trí thửa đất">
-                <Marker position={[selectedLand.location.lat, selectedLand.location.lng]}>
-                  <Popup>
-                    <strong>{selectedLand.address}</strong>
-                    <br />
-                    Tọa độ: {selectedLand.location.lat.toFixed(5)}, {selectedLand.location.lng.toFixed(5)}
-                  </Popup>
-                </Marker>
-              </LayersControl.Overlay>
-            )}
+            {/* Không render polygon và marker khi background=true */}
           </LayersControl>
           <ResetViewButton center={center} zoom={16} />
         </MapContainer>
