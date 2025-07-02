@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  web:
+    container_name: web-check-bds
+    image: ghcr.io/nghiemquochung/web_check_bds:latest
+    ports:
+      - "8080:80"
+    restart: always
