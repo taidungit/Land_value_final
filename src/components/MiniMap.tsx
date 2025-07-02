@@ -106,7 +106,10 @@ const MiniMap = ({ landIndex, height = 350, onSelectLand }: MiniMapProps) => {
         Vị trí và ranh giới
       </h3>
 
-      <div className="rounded-lg overflow-hidden border border-gray-300">
+      <div
+        className="rounded-lg overflow-hidden border border-gray-300"
+        style={{ position: 'relative', zIndex: 1 }}
+      >
         <MapContainer
           center={center as [number, number] as any}
           zoom={16}
@@ -132,6 +135,17 @@ const MiniMap = ({ landIndex, height = 350, onSelectLand }: MiniMapProps) => {
                 maxZoom={19}
               />
             </LayersControl.BaseLayer>
+
+            <LayersControl.Overlay name="Bản đồ quy hoạch TP.HCM 2030">
+            
+            <TileLayer
+          url="https://l5cfglaebpobj.vcdn.cloud/tp-ho-chi-minh-2030/{z}/{x}/{y}.png"
+          attribution="Bản đồ quy hoạch TP.HCM 2030"
+          opacity={0.6}
+        />
+          </LayersControl.Overlay>
+
+
             <LayersControl.Overlay checked name="Ranh giới lô đất">
               {/* Render tất cả các polygon */}
               {mockLands.map((land, idx) => (

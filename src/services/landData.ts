@@ -15,6 +15,7 @@ export interface LandInfo {
   max_rooms: number;
   expansion_potential: boolean;
   nearby_facilities: string[];
+  is_tail_expanded: boolean;
 }
 
 export interface PricingInfo {
@@ -44,62 +45,63 @@ export interface LandAndPricing {
 export const mockLands: LandAndPricing[] = [
   {
     landInfo: {
-      address: "12 Nguyễn Trãi, Hà Đông, Hà Nội",
-      lot_number: "501",
-      area: 95,
-      shape_description: "Hình chữ nhật",
+      address: "123 Đường Nguyễn Văn Cừ, Quận 5, TP.HCM",
+      lot_number: "234",
+      area: 85.5,
+      shape_description: "Hình đa giác (xem bản đồ)",
       shape: [
-        [20.9712, 105.7851],
-        [20.9712, 105.7857],
-        [20.9717, 105.7857],
-        [20.9717, 105.7851],
+        [10.758, 106.682],
+        [10.758, 106.683],
+        [10.759, 106.683],
+        [10.759, 106.682],
       ],
-      door_orientation: "Đông Bắc",
+      door_orientation: "Đông Nam",
       land_type: "Đất ở đô thị",
       legal_status: "Sổ đỏ đầy đủ",
-      location: { lat: 20.97145, lng: 105.7854 },
-      width_road: 7,
-      max_rooms: 5,
+      location: { lat: 10.758, lng: 106.682 },
+      width_road: 8,
+      max_rooms: 6,
       expansion_potential: true,
       nearby_facilities: [
-        "Bệnh viện Đa khoa Hà Đông (1.2km)",
-        "Trường THPT Lê Quý Đôn (0.8km)",
-        "Chợ Hà Đông (0.5km)",
-        "Công viên Hà Đông (1.0km)",
+        "Trường tiểu học An Lạc",
+        "Bệnh viện Quận 5",
+        "Chợ An Đông",
+        "Ngân hàng Vietcombank"
       ],
+      is_tail_expanded: true,
     },
     pricingInfo: {
-      estimated_price_per_m2: 65000000,
-      total_estimated_price: 6175000000,
-      liquidity_days: 55,
-      similar_properties_avg: 63000000,
+      estimated_price_per_m2: 95000000,
+      total_estimated_price: 8120000000,
+      liquidity_days: 30,
+      similar_properties_avg: 90000000,
       nearby_transactions: [
         {
-          address: "10 Nguyễn Trãi",
-          date: "2024-10-15",
-          area: 100,
-          price: 6700000000,
-          distance_m: 80,
-          price_per_m2: 67000000,
+          address: "119 Nguyễn Văn Cừ",
+          date: "2024-12-01",
+          area: 90,
+          price: 8800000000,
+          distance_m: 150,
+          price_per_m2: 97777778
         },
         {
-          address: "14 Nguyễn Trãi",
-          date: "2024-09-20",
-          area: 90,
-          price: 5850000000,
-          distance_m: 60,
-          price_per_m2: 65000000,
-        },
+          address: "125 Nguyễn Văn Cừ",
+          date: "2024-11-10",
+          area: 100,
+          price: 9700000000,
+          distance_m: 120,
+          price_per_m2: 97000000
+        }
       ],
       price_trend: [
-        { month: "T4/2024", price: 60000000 },
-        { month: "T5/2024", price: 62000000 },
-        { month: "T6/2024", price: 64000000 },
-        { month: "T7/2024", price: 65000000 },
-        { month: "T8/2024", price: 67000000 },
-        { month: "T9/2024", price: 65000000 },
-      ],
-    },
+        { month: "T6/2024", price: 90000000 },
+        { month: "T7/2024", price: 92000000 },
+        { month: "T8/2024", price: 94000000 },
+        { month: "T9/2024", price: 95000000 },
+        { month: "T10/2024", price: 96000000 },
+        { month: "T11/2024", price: 95000000 }
+      ]
+    }
   },
   {
     landInfo: {
@@ -125,6 +127,7 @@ export const mockLands: LandAndPricing[] = [
         "Trường Đại học Kiến Trúc (1.5km)",
         "Bến xe Yên Nghĩa (2.0km)",
       ],
+      is_tail_expanded: false,
     },
     pricingInfo: {
       estimated_price_per_m2: 80000000,
@@ -182,6 +185,7 @@ export const mockLands: LandAndPricing[] = [
         "Nhà hát lớn Hà Nội (1.0km)",
         "Chợ Đồng Xuân (0.7km)",
       ],
+      is_tail_expanded: false,
     },
     pricingInfo: {
       estimated_price_per_m2: 120000000,

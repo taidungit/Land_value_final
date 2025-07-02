@@ -84,16 +84,12 @@ const Index = () => {
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="grid grid-cols-1 lg:grid-cols-2 gap-8"
           >
-            {/* Bản đồ bên trái, thông tin bên phải */}
+            {/* Cột trái: Thông tin lô đất (bao gồm MiniMap) */}
             <div>
-              <MiniMap
-                landIndex={landIndex}
-                onSelectLand={(idx) => setSelectedLandIndex(idx)}
-                height={400}
-              />
-            </div>
-            <div className="space-y-8">
               <LandInfo data={selectedLand.landInfo} landIndex={landIndex} />
+            </div>
+            {/* Cột phải: Ước tính và giao dịch */}
+            <div>
               <PricingInfo data={selectedLand.pricingInfo} />
             </div>
           </motion.div>
