@@ -9,6 +9,7 @@ import MiniMap from "./MiniMap";
 
 interface SearchFormProps {
   onSearch: (address: string) => void;
+  onTyping?: (address: string) => void;
 }
 
 const fuse = new Fuse(mockLands, {
@@ -16,7 +17,7 @@ const fuse = new Fuse(mockLands, {
   threshold: 0.4,
 });
 
-const SearchForm = ({ onSearch }: SearchFormProps) => {
+const SearchForm = ({ onSearch, onTyping }: SearchFormProps) => {
   const [address, setAddress] = useState("");
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -24,6 +25,7 @@ const SearchForm = ({ onSearch }: SearchFormProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setAddress(value);
+    if (onTyping) onTyping(value);
     if (value.length > 0) {
       const results = fuse.search(value).slice(0, 5); // lấy tối đa 5 gợi ý
       setSuggestions(results);
