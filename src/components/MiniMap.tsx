@@ -206,7 +206,9 @@ const MiniMap = ({ landIndex, height = 350, onSelectLand, background = false, se
           <LayersControl>
             <LayersControl.BaseLayer checked name="OpenStreetMap">
               <TileLayer
+                // @ts-ignore
                 url="http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
+                // @ts-ignore
                 subdomains={["mt0", "mt1", "mt2", "mt3"]}
                 // @ts-ignore
                 attribution="&copy; Google"
@@ -231,7 +233,9 @@ const MiniMap = ({ landIndex, height = 350, onSelectLand, background = false, se
             {customMarkers.map((marker) => (
               <Marker
                 key={marker.id}
+                // @ts-ignore
                 position={marker.latlng}
+                // @ts-ignore
                 icon={createCustomIcon('#ff4444')}
               >
                 <Popup>
@@ -259,6 +263,19 @@ const MiniMap = ({ landIndex, height = 350, onSelectLand, background = false, se
                   (Địa chỉ bạn đang gõ)
                 </Popup>
               </Marker>
+            )}
+            {background && (
+              mockLands.map((land, idx) => (
+                <Polygon
+                  key={idx}
+                  positions={land.landInfo.shape}
+                  pathOptions={{
+                    color: '#2563eb',
+                    weight: 2,
+                    fillOpacity: 0.15,
+                  }}
+                />
+              ))
             )}
           </LayersControl>
           {/* 👉 Thêm ClickHandler cho background map */}
@@ -292,7 +309,9 @@ const MiniMap = ({ landIndex, height = 350, onSelectLand, background = false, se
             <LayersControl>
               <LayersControl.BaseLayer checked name="OpenStreetMap">
                 <TileLayer
+                  // @ts-ignore
                   url="http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
+                  // @ts-ignore
                   subdomains={["mt0", "mt1", "mt2", "mt3"]}
                   // @ts-ignore
                   attribution="&copy; Google"
@@ -371,7 +390,9 @@ const MiniMap = ({ landIndex, height = 350, onSelectLand, background = false, se
             <LayersControl>
               <LayersControl.BaseLayer checked name="OpenStreetMap">
                 <TileLayer
+                  // @ts-ignore
                   url="http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
+                  // @ts-ignore
                   subdomains={["mt0", "mt1", "mt2", "mt3"]}
                   // @ts-ignore
                   attribution="&copy; Google"
@@ -430,7 +451,9 @@ const MiniMap = ({ landIndex, height = 350, onSelectLand, background = false, se
                 {customMarkers.map((marker) => (
                   <Marker
                     key={marker.id}
+                    // @ts-ignore
                     position={marker.latlng}
+                    // @ts-ignore
                     icon={createCustomIcon('#ff4444')}
                   >
                     <Popup>
